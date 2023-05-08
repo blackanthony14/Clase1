@@ -4,11 +4,13 @@ const morgan = require('morgan');
 const { PrismaClient } = require("@prisma/client");
 const app = express();
 const port = 3000;
+const cors = require('cors');
 const prisma = new PrismaClient();
 
 // Utilizar los paquetes para el servidor
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 // Montamos el servidor
 app.listen(port, () => {
@@ -26,7 +28,7 @@ app.post('/registro', async (req, res) => {
         data: {
             nombre: nombre,
             apellido: apellido,
-            edad: edad
+            edad: Number(edad)
         }
     });
     res.json(usuario);

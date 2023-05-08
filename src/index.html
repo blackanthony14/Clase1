@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <form id="form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" />
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" />
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" />
+        <button type="submit">Agregar Usuario</button>
+      </form>
+    </div>
+    <script>
+      const formulario = document.getElementById("form");
+      formulario.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("Entro al onclick");
+        const nombre = document.getElementById("name").value;
+        const apellido = document.getElementById("lastName").value;
+        const edad = document.getElementById("age").value;
+        fetch("http://localhost:3000/registro",{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre,apellido,edad
+            }),
+        })
+        .then((response) => response.json())
+        .then((registro) =>{
+            alert('Usuario agregado');
+            formulario.reset();
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Error al agregar usuario');
+        });
+    });
+    </script>
+  </body>
+</html>
+
