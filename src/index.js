@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 
 // Montamos el servidor
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Servidor ejecutandose en http://localhost:${port}`);
 })
 
 //Rutas
@@ -37,7 +37,7 @@ app.get('/usuarios', async (req, res) => {
     res.json(usuarios);
 })
 
-app.get('/usuarios/:id', async (req, res) => {
+app.get('/usuario/:id', async (req, res) => {
     const {id} = req.params;
     const usuario = await prisma.usuario.findUnique({
         where: {
@@ -47,7 +47,7 @@ app.get('/usuarios/:id', async (req, res) => {
     res.json(usuario);
 })
 
-app.delete('/usuarios/:id', async (req, res) => {
+app.delete('/usuario/:id', async (req, res) => {
     const {id} = req.params;
     const usuario = await prisma.usuario.delete({
         where: {
@@ -57,23 +57,7 @@ app.delete('/usuarios/:id', async (req, res) => {
     res.json(usuario);
 })
 
-// app.put("/usuarios/:id", async (req, res) => {
-//     const {id} = req.params;
-//     const { nombre, apellido, edad} = req.body;
-//     const usuario = await prisma.usuario.update({
-//       where: {
-//         id: Number(id),
-//       },
-//       data: {
-//         nombre: nombre,
-//         apellido: apellido,
-//         edad: edad,
-//       }
-//     });
-//     res.send(usuario);
-//   });
-
-app.put("/usuarios/:id", async (req, res) => {
+app.put("/usuario/:id", async (req, res) => {
     const {id} = req.params;
     const { nombre, apellido, edad } = req.body;
     const usuario = await prisma.usuario.update({
